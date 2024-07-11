@@ -1,5 +1,10 @@
 src/contract-artifacts.ts
 src/contract-deployed-artifacts.ts
+/chugsplash
+/L1
+/L2
+/libraries
+/standards
 
 !artifacts/
 artifacts/@openzeppelin/

@@ -9,10 +9,10 @@ import { task } from 'hardhat/config'
 import * as types from 'hardhat/internal/core/params/argumentTypes'
 import { remove0x } from '@eth-optimism/core-utils'
 import { isAddress } from 'ethers/lib/utils'
+import '@eth-optimism/hardhat-deploy-config'
 
 import { predeploys } from '../src/predeploys'
 import { getContractFromArtifact } from '../src/deploy-utils'
-import { getDeployConfig } from '../src/deploy-config'
 import { names } from '../src/address-names'
 
 task('take-dump')
@@ -56,13 +56,10 @@ task('take-dump')
 
       /* eslint-enable @typescript-eslint/no-var-requires */
 
-      // Make sure we have a deploy config for this network
-      const deployConfig = getDeployConfig(hre.network.name)
-
       // Basic warning so users know that the whitelist will be disabled if the owner is the zero address.
       if (
-        deployConfig.ovmWhitelistOwner === undefined ||
-        deployConfig.ovmWhitelistOwner === ethers.constants.AddressZero
+        hre.deployConfig.ovmWhitelistOwner === undefined ||
+        hre.deployConfig.ovmWhitelistOwner === ethers.constants.AddressZero
       ) {
         console.log(
           'WARNING: whitelist owner is undefined or address(0), whitelist will be disabled'
@@ -88,24 +85,24 @@ task('take-dump')
 
       const variables = {
         OVM_DeployerWhitelist: {
-          owner: deployConfig.ovmWhitelistOwner,
+          owner: hre.deployConfig.ovmWhitelistOwner,
         },
         OVM_GasPriceOracle: {
-          _owner: deployConfig.ovmGasPriceOracleOwner,
-          gasPrice: deployConfig.gasPriceOracleL2GasPrice,
-          l1BaseFee: deployConfig.gasPriceOracleL1BaseFee,
-          overhead: deployConfig.gasPriceOracleOverhead,
-          scalar: deployConfig.gasPriceOracleScalar,
-          decimals: deployConfig.gasPriceOracleDecimals,
+          _owner: hre.deployConfig.ovmGasPriceOracleOwner,
+          gasPrice: hre.deployConfig.gasPriceOracleL2GasPrice,
+          l1BaseFee: hre.deployConfig.gasPriceOracleL1BaseFee,
+          overhead: hre.deployConfig.gasPriceOracleOverhead,
+          scalar: hre.deployConfig.gasPriceOracleScalar,
+          decimals: hre.deployConfig.gasPriceOracleDecimals,
         },
         L2StandardBridge: {
           l1TokenBridge,
           messenger: predeploys.L2CrossDomainMessenger,
         },
         OVM_SequencerFeeVault: {
-          l1FeeWallet: deployConfig.ovmFeeWalletAddress,
+          l1FeeWallet: hre.deployConfig.ovmFeeWalletAddress,
         },
-        OVM_OAS: {
+        OVM_ETH: {
           l2Bridge: predeploys.L2StandardBridge,
           l1Token: ethers.constants.AddressZero,
           _name: 'OAS',
@@ -189,7 +186,7 @@ task('take-dump')
       const genesis = {
         commit,
         config: {
-          chainId: deployConfig.l2ChainId,
+          chainId: hre.deployConfig.l2ChainId,
           homesteadBlock: 0,
           eip150Block: 0,
           eip155Block: 0,
@@ -199,18 +196,18 @@ task('take-dump')
           petersburgBlock: 0,
           istanbulBlock: 0,
           muirGlacierBlock: 0,
-          berlinBlock: deployConfig.hfBerlinBlock,
+          berlinBlock: hre.deployConfig.hfBerlinBlock,
           clique: {
             period: 0,
             epoch: 30000,
           },
         },
         difficulty: '1',
-        gasLimit: deployConfig.l2BlockGasLimit.toString(10),
+        gasLimit: hre.deployConfig.l2BlockGasLimit.toString(10),
         extradata:
           '0x' +
           '00'.repeat(32) +
-          remove0x(deployConfig.ovmBlockSignerAddress) +
+          remove0x(hre.deployConfig.ovmBlockSignerAddress) +
           '00'.repeat(65),
         alloc: dump,
       }

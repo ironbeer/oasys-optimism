@@ -1,5 +1,181 @@
 # Changelog
 
+## 0.6.0
+
+### Minor Changes
+
+- 5063a69fb: Update sdk contract addresses for bedrock
+
+## 0.5.40
+
+### Patch Changes
+
+- d1f9098f9: Removes support for Kovan
+
+## 0.5.39
+
+### Patch Changes
+
+- 1d3c749a2: Bumps the version of ts-node used
+- 1d3c749a2: Updates the version of TypeScript
+- Updated dependencies [c975c9620]
+- Updated dependencies [136ea1785]
+  - @eth-optimism/core-utils@0.12.0
+
+## 0.5.38
+
+### Patch Changes
+
+- Updated dependencies [1e76cdb86]
+  - @eth-optimism/core-utils@0.11.0
+
+## 0.5.37
+
+### Patch Changes
+
+- 628affc7: Add prefunded accounts to L2 genesis when doing local network
+- 740e1bcc: Expose the deployments in the deployer image
+
+## 0.5.36
+
+### Patch Changes
+
+- 7215f4ce: Bump ethers to 5.7.0 globally
+- Updated dependencies [7215f4ce]
+- Updated dependencies [206f6033]
+  - @eth-optimism/core-utils@0.10.1
+
+## 0.5.35
+
+### Patch Changes
+
+- 334a3eb0: Quick patch to fix a build issue in the contracts package
+
+## 0.5.34
+
+### Patch Changes
+
+- 299157e7: Significantly reduces contracts package bundle size
+- Updated dependencies [dbfea116]
+  - @eth-optimism/core-utils@0.10.0
+
+## 0.5.33
+
+### Patch Changes
+
+- 0c2719f8: Add inspect hh task
+- a1a73e64: Updates the SDK to pull contract addresses from the deployments of the contracts package. Updates the Contracts package to export a function that makes it possible to pull deployed addresses.
+
+## 0.5.32
+
+### Patch Changes
+
+- Updated dependencies [0df744f6]
+- Updated dependencies [8ae39154]
+- Updated dependencies [dac4a9f0]
+  - @eth-optimism/core-utils@0.9.3
+
+## 0.5.31
+
+### Patch Changes
+
+- 1de4f48e: Deploy goerli SCC to fix sccFaultProofWindowSeconds
+- Updated dependencies [0bf3b9b4]
+- Updated dependencies [8d26459b]
+- Updated dependencies [4477fe9f]
+  - @eth-optimism/core-utils@0.9.2
+
+## 0.5.30
+
+### Patch Changes
+
+- 6e3449ba: Properly export typechain
+- Updated dependencies [f9fee446]
+  - @eth-optimism/core-utils@0.9.1
+
+## 0.5.29
+
+### Patch Changes
+
+- Updated dependencies [700dcbb0]
+  - @eth-optimism/core-utils@0.9.0
+
+## 0.5.28
+
+### Patch Changes
+
+- 27234f68: Use hardhat-deploy-config for deployments
+- 29ff7462: Revert es target back to 2017
+- Updated dependencies [29ff7462]
+  - @eth-optimism/core-utils@0.8.7
+
+## 0.5.27
+
+### Patch Changes
+
+- 7c5ac36f: goerli redeploy
+- 3d4d988c: package: contracts-governance
+
+## 0.5.26
+
+### Patch Changes
+
+- Updated dependencies [17962ca9]
+  - @eth-optimism/core-utils@0.8.6
+
+## 0.5.25
+
+### Patch Changes
+
+- d18ae135: Updates all ethers versions in response to BN.js bug
+- Updated dependencies [d18ae135]
+  - @eth-optimism/core-utils@0.8.5
+
+## 0.5.24
+
+### Patch Changes
+
+- b7a04acf: Remove unused network name parameter in contract deploy configs
+
+## 0.5.23
+
+### Patch Changes
+
+- 412688d5: Replace calls to getNetwork() with getChainId util
+
+## 0.5.22
+
+### Patch Changes
+
+- 51adb389: Add Teleportr mainnet deployment
+- Updated dependencies [5cb3a5f7]
+- Updated dependencies [6b9fc055]
+  - @eth-optimism/core-utils@0.8.4
+
+## 0.5.21
+
+### Patch Changes
+
+- 5818decb: Remove l2 gas price hardhat task
+
+## 0.5.20
+
+### Patch Changes
+
+- d040a8d9: Deleted update and helper functions/tests from Lib_MerkleTrie.sol and Lib_SecureMerkleTrie.sol
+- b57014d1: Update to typescript@4.6.2
+- Updated dependencies [b57014d1]
+  - @eth-optimism/core-utils@0.8.3
+
+## 0.5.19
+
+### Patch Changes
+
+- c1957126: Update Dockerfile to use Alpine
+- d9a51154: Bump to hardhat@2.9.1
+- Updated dependencies [c1957126]
+  - @eth-optimism/core-utils@0.8.2
+
 ## 0.5.18
 
 ### Patch Changes

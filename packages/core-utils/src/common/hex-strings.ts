@@ -1,6 +1,6 @@
 /* Imports: External */
-import { BigNumber, ethers } from 'ethers'
-import { hexZeroPad } from '@ethersproject/bytes'
+import { BigNumber } from '@ethersproject/bignumber'
+import { isHexString, hexZeroPad } from '@ethersproject/bytes'
 
 /**
  * Removes "0x" from start of a string if it exists.
@@ -113,11 +113,11 @@ export const encodeHex = (val: any, len: number): string =>
  * @return True if equal
  */
 export const hexStringEquals = (stringA: string, stringB: string): boolean => {
-  if (!ethers.utils.isHexString(stringA)) {
+  if (!isHexString(stringA)) {
     throw new Error(`input is not a hex string: ${stringA}`)
   }
 
-  if (!ethers.utils.isHexString(stringB)) {
+  if (!isHexString(stringB)) {
     throw new Error(`input is not a hex string: ${stringB}`)
   }
 

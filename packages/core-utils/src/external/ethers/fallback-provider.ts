@@ -2,8 +2,11 @@
  * Provider Utilities
  */
 
-import { ethers } from 'ethers'
-import { Provider } from '@ethersproject/providers'
+import {
+  Provider,
+  StaticJsonRpcProvider,
+  FallbackProvider as EthersFallbackProvider,
+} from '@ethersproject/providers'
 import { ConnectionInfo } from '@ethersproject/web'
 
 export interface HttpHeaders {
@@ -44,11 +47,11 @@ export const FallbackProvider = (
       }
       configs.push({
         priority: i,
-        provider: new ethers.providers.StaticJsonRpcProvider(connectionInfo),
+        provider: new StaticJsonRpcProvider(connectionInfo),
       })
     }
-    return new ethers.providers.FallbackProvider(configs)
+    return new EthersFallbackProvider(configs)
   }
 
-  return new ethers.providers.FallbackProvider(config)
+  return new EthersFallbackProvider(config)
 }

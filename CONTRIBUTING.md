@@ -2,13 +2,15 @@
 
 🎈 Thanks for your help improving the project! We are so happy to have you!
 
+**No contribution is too small and all contributions are valued.**
+
 There are plenty of ways to contribute, in particular we appreciate support in the following areas:
 
 - Reporting issues. For security issues see [Security policy](https://github.com/ethereum-optimism/.github/blob/master/SECURITY.md).
 - Fixing and responding to existing issues. You can start off with those tagged ["good first issue"](https://github.com/ethereum-optimism/optimism/contribute) which are meant as introductory issues for external contributors.
-- Improving the [community site](https://community.optimism.io/)[documentation](https://github.com/ethereum-optimism/community-hub) and [tutorials](https://github.com/ethereum-optimism/optimism-tutorial).
-- Become an "Optimizer" and answer questions in the [Optimism Discord](https://discord.com/invite/jrnFEvq).
-- Get involved in the protocol design process by proposing changes or new features or write parts of the spec yourself in the [optimistic-specs repo](https://github.com/ethereum-optimism/optimistic-specs).
+- Improving the [community site](https://community.optimism.io/), [documentation](https://github.com/ethereum-optimism/community-hub) and [tutorials](https://github.com/ethereum-optimism/optimism-tutorial).
+- Become an "Optimizer" and answer questions in the [Optimism Discord](https://discord.optimism.io).
+- Get involved in the protocol design process by proposing changes or new features or write parts of the spec yourself in the [specs subdirectory](./specs/).
 
 Note that we have a [Code of Conduct](https://github.com/ethereum-optimism/.github/blob/master/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
@@ -64,26 +66,37 @@ You'll need the following:
 * [Yarn](https://classic.yarnpkg.com/en/docs/install)
 * [Docker](https://docs.docker.com/get-docker/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
+* [Go](https://go.dev/dl/)
+* [Foundry](https://getfoundry.sh)
 
 ### Setup
 
-Clone the repository, open it, and install nodejs packages with `yarn`:
+Clone the repository and open it:
 
 ```bash
 git clone git@github.com:ethereum-optimism/optimism.git
 cd optimism
-yarn install
 ```
 
 ### Install the Correct Version of NodeJS
 
-Using `nvm`, install the correct version of NodeJS.
+Install node v16.16.0 with [nvm](https://github.com/nvm-sh/nvm)
 
-```
+```bash
 nvm use
 ```
 
+### Install node modules with Yarn
+
+```bash
+yarn install
+```
+
 ### Building the TypeScript packages
+
+[foundry](https://github.com/foundry-rs/foundry) is used for some smart contract
+development in the monorepo. It is required to build the TypeScript packages
+and compile the smart contracts. Install foundry [here](https://getfoundry.sh/).
 
 To build all of the [TypeScript packages](./packages), run:
 
@@ -116,7 +129,6 @@ This will build the following containers:
 * [`verifier`](https://hub.docker.com/r/ethereumoptimism/go-ethereum): L2 geth node running in Verifier mode
 * [`relayer`](https://hub.docker.com/r/ethereumoptimism/message-relayer): helper process that relays messages between L1 and L2
 * [`batch_submitter`](https://hub.docker.com/r/ethereumoptimism/batch-submitter-service): service that submits batches of Sequencer transactions to the L1 chain
-* [`integration_tests`](https://hub.docker.com/r/ethereumoptimism/integration-tests): integration tests in a box
 
 If you want to make a change to a container, you'll need to take it down and rebuild it.
 For example, if you make a change in l2geth:
@@ -180,16 +192,6 @@ cd packages/package-to-test
 yarn test
 ```
 
-#### Running integration tests
-
-Follow above instructions for building the whole stack.
-Build and run the integration tests:
-
-```bash
-cd integration-tests
-yarn build
-yarn test:integration
-```
 #### Running contract static analysis
 
 We perform static analysis with [`slither`](https://github.com/crytic/slither).

@@ -1,6 +1,6 @@
 /* Imports: External */
 import { BigNumber, Contract, Signer } from 'ethers'
-import { sleep } from '@eth-optimism/core-utils'
+import { sleep, getChainId } from '@eth-optimism/core-utils'
 import {
   BaseServiceV2,
   validators,
@@ -19,6 +19,7 @@ import {
 import { Provider } from '@ethersproject/abstract-provider'
 
 import Multicall2 from './contracts/Multicall2.json'
+import { version } from '../package.json'
 
 type MessageRelayerOptions = {
   l1RpcProvider: Provider
@@ -65,7 +66,8 @@ export class MessageRelayerService extends BaseServiceV2<
 > {
   constructor(options?: Partial<MessageRelayerOptions>) {
     super({
-      name: 'Message_Relayer',
+      version,
+      name: 'message-relayer',
       options,
       optionsSpec: {
         l1RpcProvider: {
@@ -84,6 +86,7 @@ export class MessageRelayerService extends BaseServiceV2<
           validator: validators.num,
           desc: 'Index of the first L2 transaction to start processing from.',
           default: 0,
+          public: true,
         },
         addressManager: {
           validator: validators.str,
@@ -170,7 +173,7 @@ export class MessageRelayerService extends BaseServiceV2<
       this.options.bondManager,
     ]
 
-    let contracts: DeepPartial<OEContractsLike> = undefined
+    let contracts: DeepPartial<OEContractsLike>
     if (l1ContractOpts.every((x) => x)) {
       contracts = {
         l1: {
@@ -187,12 +190,11 @@ export class MessageRelayerService extends BaseServiceV2<
       throw new Error('L1 contract address is missing.')
     }
 
-    const l1Network = await this.state.wallet.provider.getNetwork()
-    const l1ChainId = l1Network.chainId
     this.state.messenger = new CrossChainMessenger({
       l1SignerOrProvider: this.state.wallet,
       l2SignerOrProvider: this.options.l2RpcProvider,
-      l1ChainId,
+      l1ChainId: await getChainId(this.state.wallet.provider),
+      l2ChainId: await getChainId(this.options.l2RpcProvider),
       contracts,
     })
 

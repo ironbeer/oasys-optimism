@@ -1,8 +1,12 @@
-# Optimism Goerli (internal devnet)
-## Notice
-Optimism Goerli is an internal Optimism development network. You're probably looking for [Optimism Kovan](../kovan#readme), the public Optimism testnet.
+# Optimism Goerli (public testnet)
 ## Network Info
 - **Chain ID**: 420
+- **Public RPC**: https://goerli.optimism.io
+- **Block Explorer**: https://goerli-optimism.etherscan.io/
+
+**Note:** This list is out of date, now that Goerli is on bedrock.
+[The valid list is here](https://github.com/ethereum-optimism/optimism/tree/develop/packages/contracts-bedrock/deployments/goerli).
+
 ## Layer 1 Contracts
 <table>
 <tr>
@@ -20,8 +24,8 @@ Optimism Goerli is an internal Optimism development network. You're probably loo
 BondManager
 </td>
 <td align="center">
-<a href="https://goerli.etherscan.io/address/0xE5AE60bD6F8DEe4D0c2BC9268e23B92F1cacC58F">
-<code>0xE5AE60bD6F8DEe4D0c2BC9268e23B92F1cacC58F</code>
+<a href="https://goerli.etherscan.io/address/0xfC2ab6987C578218f99E85d61Dcf4814A26637Bd">
+<code>0xfC2ab6987C578218f99E85d61Dcf4814A26637Bd</code>
 </a>
 </td>
 </tr>
@@ -30,8 +34,8 @@ BondManager
 CanonicalTransactionChain
 </td>
 <td align="center">
-<a href="https://goerli.etherscan.io/address/0x2ebA8c4EfDB39A8Cd8f9eD65c50ec079f7CEBD81">
-<code>0x2ebA8c4EfDB39A8Cd8f9eD65c50ec079f7CEBD81</code>
+<a href="https://goerli.etherscan.io/address/0x607F755149cFEB3a14E1Dc3A4E2450Cde7dfb04D">
+<code>0x607F755149cFEB3a14E1Dc3A4E2450Cde7dfb04D</code>
 </a>
 </td>
 </tr>
@@ -40,18 +44,8 @@ CanonicalTransactionChain
 ChainStorageContainer-CTC-batches
 </td>
 <td align="center">
-<a href="https://goerli.etherscan.io/address/0x0821Ff73FD88bb73E90F2Ea459B57430dff731Dd">
-<code>0x0821Ff73FD88bb73E90F2Ea459B57430dff731Dd</code>
-</a>
-</td>
-</tr>
-<tr>
-<td>
-ChainStorageContainer-CTC-queue
-</td>
-<td align="center">
-<a href="https://goerli.etherscan.io/address/0xf96dc01589969B85e27017F1bC449CB981eED9C8">
-<code>0xf96dc01589969B85e27017F1bC449CB981eED9C8</code>
+<a href="https://goerli.etherscan.io/address/0x4325Ac17c7fF5Afc0d05335dD30Db3D010455813">
+<code>0x4325Ac17c7fF5Afc0d05335dD30Db3D010455813</code>
 </a>
 </td>
 </tr>
@@ -60,8 +54,8 @@ ChainStorageContainer-CTC-queue
 ChainStorageContainer-SCC-batches
 </td>
 <td align="center">
-<a href="https://goerli.etherscan.io/address/0x829863Ce01B475B7d030539d2181d49E7A4b8aD9">
-<code>0x829863Ce01B475B7d030539d2181d49E7A4b8aD9</code>
+<a href="https://goerli.etherscan.io/address/0x41eF5DaF4A7719bfe89A88BA3DD0DCFF5feCeD39">
+<code>0x41eF5DaF4A7719bfe89A88BA3DD0DCFF5feCeD39</code>
 </a>
 </td>
 </tr>
@@ -70,8 +64,8 @@ ChainStorageContainer-SCC-batches
 Lib_AddressManager
 </td>
 <td align="center">
-<a href="https://goerli.etherscan.io/address/0x2F7E3cAC91b5148d336BbffB224B4dC79F09f01D">
-<code>0x2F7E3cAC91b5148d336BbffB224B4dC79F09f01D</code>
+<a href="https://goerli.etherscan.io/address/0xa6f73589243a6A7a9023b1Fa0651b1d89c177111">
+<code>0xa6f73589243a6A7a9023b1Fa0651b1d89c177111</code>
 </a>
 </td>
 </tr>
@@ -80,8 +74,8 @@ Lib_AddressManager
 Proxy__OVM_L1CrossDomainMessenger
 </td>
 <td align="center">
-<a href="https://goerli.etherscan.io/address/0xEcC89b9EDD804850C4F343A278Be902be11AaF42">
-<code>0xEcC89b9EDD804850C4F343A278Be902be11AaF42</code>
+<a href="https://goerli.etherscan.io/address/0x5086d1eEF304eb5284A0f6720f79403b4e9bE294">
+<code>0x5086d1eEF304eb5284A0f6720f79403b4e9bE294</code>
 </a>
 </td>
 </tr>
@@ -90,8 +84,8 @@ Proxy__OVM_L1CrossDomainMessenger
 Proxy__OVM_L1StandardBridge
 </td>
 <td align="center">
-<a href="https://goerli.etherscan.io/address/0x73298186A143a54c20ae98EEE5a025bD5979De02">
-<code>0x73298186A143a54c20ae98EEE5a025bD5979De02</code>
+<a href="https://goerli.etherscan.io/address/0x636Af16bf2f682dD3109e60102b8E1A089FedAa8">
+<code>0x636Af16bf2f682dD3109e60102b8E1A089FedAa8</code>
 </a>
 </td>
 </tr>
@@ -100,8 +94,8 @@ Proxy__OVM_L1StandardBridge
 StateCommitmentChain
 </td>
 <td align="center">
-<a href="https://goerli.etherscan.io/address/0x1afcA918eff169eE20fF8AB6Be75f3E872eE1C1A">
-<code>0x1afcA918eff169eE20fF8AB6Be75f3E872eE1C1A</code>
+<a href="https://goerli.etherscan.io/address/0x9c945aC97Baf48cB784AbBB61399beB71aF7A378">
+<code>0x9c945aC97Baf48cB784AbBB61399beB71aF7A378</code>
 </a>
 </td>
 </tr>
@@ -124,7 +118,9 @@ StateCommitmentChain
 OVM_L2ToL1MessagePasser
 </td>
 <td align="center">
+<a href="https://goerli-optimism.etherscan.io//address/0x4200000000000000000000000000000000000000">
 <code>0x4200000000000000000000000000000000000000</code>
+</a>
 </td>
 </tr>
 <tr>
@@ -132,7 +128,9 @@ OVM_L2ToL1MessagePasser
 OVM_DeployerWhitelist
 </td>
 <td align="center">
+<a href="https://goerli-optimism.etherscan.io//address/0x4200000000000000000000000000000000000002">
 <code>0x4200000000000000000000000000000000000002</code>
+</a>
 </td>
 </tr>
 <tr>
@@ -140,7 +138,9 @@ OVM_DeployerWhitelist
 L2CrossDomainMessenger
 </td>
 <td align="center">
+<a href="https://goerli-optimism.etherscan.io//address/0x4200000000000000000000000000000000000007">
 <code>0x4200000000000000000000000000000000000007</code>
+</a>
 </td>
 </tr>
 <tr>
@@ -148,7 +148,9 @@ L2CrossDomainMessenger
 OVM_GasPriceOracle
 </td>
 <td align="center">
+<a href="https://goerli-optimism.etherscan.io//address/0x420000000000000000000000000000000000000F">
 <code>0x420000000000000000000000000000000000000F</code>
+</a>
 </td>
 </tr>
 <tr>
@@ -156,7 +158,9 @@ OVM_GasPriceOracle
 L2StandardBridge
 </td>
 <td align="center">
+<a href="https://goerli-optimism.etherscan.io//address/0x4200000000000000000000000000000000000010">
 <code>0x4200000000000000000000000000000000000010</code>
+</a>
 </td>
 </tr>
 <tr>
@@ -164,7 +168,9 @@ L2StandardBridge
 OVM_SequencerFeeVault
 </td>
 <td align="center">
+<a href="https://goerli-optimism.etherscan.io//address/0x4200000000000000000000000000000000000011">
 <code>0x4200000000000000000000000000000000000011</code>
+</a>
 </td>
 </tr>
 <tr>
@@ -172,7 +178,9 @@ OVM_SequencerFeeVault
 L2StandardTokenFactory
 </td>
 <td align="center">
+<a href="https://goerli-optimism.etherscan.io//address/0x4200000000000000000000000000000000000012">
 <code>0x4200000000000000000000000000000000000012</code>
+</a>
 </td>
 </tr>
 <tr>
@@ -180,7 +188,9 @@ L2StandardTokenFactory
 OVM_L1BlockNumber
 </td>
 <td align="center">
+<a href="https://goerli-optimism.etherscan.io//address/0x4200000000000000000000000000000000000013">
 <code>0x4200000000000000000000000000000000000013</code>
+</a>
 </td>
 </tr>
 <tr>
@@ -188,7 +198,9 @@ OVM_L1BlockNumber
 OVM_ETH
 </td>
 <td align="center">
+<a href="https://goerli-optimism.etherscan.io//address/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000">
 <code>0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000</code>
+</a>
 </td>
 </tr>
 <tr>
@@ -196,7 +208,9 @@ OVM_ETH
 WETH9
 </td>
 <td align="center">
+<a href="https://goerli-optimism.etherscan.io//address/0x4200000000000000000000000000000000000006">
 <code>0x4200000000000000000000000000000000000006</code>
+</a>
 </td>
 </tr>
 </table>

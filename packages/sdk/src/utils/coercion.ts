@@ -1,5 +1,3 @@
-import assert from 'assert'
-
 import {
   Provider,
   TransactionReceipt,
@@ -8,6 +6,7 @@ import {
 import { Signer } from '@ethersproject/abstract-signer'
 import { ethers, BigNumber } from 'ethers'
 
+import { assert } from './assert'
 import {
   SignerOrProviderLike,
   ProviderLike,
@@ -29,9 +28,9 @@ export const toSignerOrProvider = (
   if (typeof signerOrProvider === 'string') {
     return new ethers.providers.JsonRpcProvider(signerOrProvider)
   } else if (Provider.isProvider(signerOrProvider)) {
-    return signerOrProvider as Provider
+    return signerOrProvider
   } else if (Signer.isSigner(signerOrProvider)) {
-    return signerOrProvider as Signer
+    return signerOrProvider
   } else {
     throw new Error('Invalid provider')
   }
@@ -48,7 +47,7 @@ export const toProvider = (provider: ProviderLike): Provider => {
   if (typeof provider === 'string') {
     return new ethers.providers.JsonRpcProvider(provider)
   } else if (Provider.isProvider(provider)) {
-    return provider as Provider
+    return provider
   } else {
     throw new Error('Invalid provider')
   }
@@ -66,7 +65,6 @@ export const toTransactionHash = (transaction: TransactionLike): string => {
       ethers.utils.isHexString(transaction, 32),
       'Invalid transaction hash'
     )
-
     return transaction
   } else if ((transaction as TransactionReceipt).transactionHash) {
     return (transaction as TransactionReceipt).transactionHash
