@@ -406,7 +406,7 @@ export class L1IngestionService extends BaseService<L1IngestionServiceOptions> {
       if (events.length > 0) {
         const tick = Date.now()
 
-        for (const event of events) {
+        const promises = events.map(async (event) => {
           const extraData = await handlers.getExtraData(
             event,
             this.state.l1RpcProvider
@@ -417,7 +417,9 @@ export class L1IngestionService extends BaseService<L1IngestionServiceOptions> {
             this.options.l2ChainId
           )
           await handlers.storeEvent(parsedEvent, this.state.db)
-        }
+        })
+
+        await Promise.all(promises)
 
         const tock = Date.now()
 
