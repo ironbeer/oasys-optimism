@@ -406,24 +406,38 @@ export class L1IngestionService extends BaseService<L1IngestionServiceOptions> {
       if (events.length > 0) {
         const tick = Date.now()
 
-        const parsedEvents = await Promise.all(
-          events.map(async (event) => {
-            const extraData = await handlers.getExtraData(
+        const extraDatas = await Promise.all(
+          events.map((event) =>
+            handlers.getExtraData(event, this.state.l1RpcProvider)
+          )
+        )
+        this.logger.info('Fetched extra datas', {
+          eventName,
+          durationMs: Date.now() - tick,
+        })
+
+        const parsedEvents = []
+        for (const [i, event] of events.entries()) {
+          parsedEvents.push(
+            await handlers.parseEvent(
               event,
-              this.state.l1RpcProvider
-            )
-            const parsedEvent = await handlers.parseEvent(
-              event,
-              extraData,
+              extraDatas[i],
               this.options.l2ChainId
             )
-            this.logger.info('Parsed events', {
-              eventName,
-              block: event.blockNumber,
-            })
-            return parsedEvent
+          )
+          this.logger.info('Parsed events', {
+            eventName,
+            block: event.blockNumber,
+            i,
+            durationMs: Date.now() - tick,
           })
-        )
+        }
+        this.logger.info('Parsed all events', {
+          eventName,
+          len: parsedEvents.length,
+          durationMs: Date.now() - tick,
+        })
+
         for (const parsedEvent of parsedEvents) {
           await handlers.storeEvent(parsedEvent, this.state.db)
           this.logger.info('Stored events', { eventName })
