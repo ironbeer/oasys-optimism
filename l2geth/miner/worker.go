@@ -475,6 +475,7 @@ func (w *worker) mainLoop() {
 						uncles = append(uncles, uncle.Header())
 						return false
 					})
+					log.Info("Commit from mainLoop")
 					w.commit(uncles, nil, start)
 				}
 			}
@@ -981,6 +982,7 @@ func (w *worker) commitNewTx(tx *types.Transaction) error {
 	if err := w.commitTransactionsWithError(txs, w.coinbase, nil); err != nil {
 		return err
 	}
+	log.Info("Commit from commitNewTx")
 	return w.commit(nil, w.fullTaskHook, tstart)
 }
 
@@ -1095,6 +1097,7 @@ func (w *worker) commitNewWork(interrupt *int32, timestamp int64) {
 			return
 		}
 	}
+	log.Info("Commit from commitNewWork")
 	w.commit(uncles, w.fullTaskHook, tstart)
 }
 
