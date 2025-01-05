@@ -423,6 +423,7 @@ func (s *SyncService) VerifierLoop() {
 	for {
 		select {
 		case <-t.C:
+			log.Info("Run next verify")
 			if err := s.verify(); err != nil {
 				log.Error("Could not verify", "error", err)
 			}
@@ -622,8 +623,8 @@ func (s *SyncService) GasPriceOracleOwnerAddress() *common.Address {
 	return &s.gasPriceOracleOwnerAddress
 }
 
-/// Update the execution context's timestamp and blocknumber
-/// over time. This is only necessary for the sequencer.
+// / Update the execution context's timestamp and blocknumber
+// / over time. This is only necessary for the sequencer.
 func (s *SyncService) updateL1BlockNumber() error {
 	context, err := s.client.GetLatestEthContext()
 	if err != nil {
@@ -941,14 +942,17 @@ func (s *SyncService) applyBatchedTransaction(tx *types.Transaction) error {
 	}
 	index := tx.GetMeta().Index
 	if index == nil {
+		log.Error("No index found on transaction")
 		return errors.New("No index found on transaction")
 	}
 	log.Trace("Applying batched transaction", "index", *index)
 	err := s.applyIndexedTransaction(tx)
 	if err != nil {
+		log.Error("Cannot apply batched transaction", "err", err)
 		return fmt.Errorf("Cannot apply batched transaction: %w", err)
 	}
 	s.SetLatestVerifiedIndex(index)
+	log.Info("Set latest verified index", "index", index)
 	return nil
 }
 
@@ -1117,6 +1121,11 @@ func (s *SyncService) syncToTip(sync syncer, getTip indexGetter) error {
 
 	for {
 		index, err := sync()
+		if index == nil {
+			log.Info("syncToTip sync()", "index", nil, "err", err)
+		} else {
+			log.Info("syncToTip sync()", "index", &index, "err", err)
+		}
 		if errors.Is(err, errElementNotFound) {
 			return nil
 		}
@@ -1124,6 +1133,7 @@ func (s *SyncService) syncToTip(sync syncer, getTip indexGetter) error {
 			return err
 		}
 		isAtTip, err := s.isAtTip(index, getTip)
+		log.Info("syncToTip isAtTip()", "index", &index, "isAtTip", isAtTip, "err", err)
 		if err != nil {
 			return err
 		}
@@ -1168,13 +1178,16 @@ func (s *SyncService) syncBatches() (*uint64, error) {
 func (s *SyncService) syncTransactionBatchRange(start, end uint64) error {
 	log.Info("Syncing transaction batch range", "start", start, "end", end)
 	for i := start; i <= end; i++ {
-		log.Debug("Fetching transaction batch", "index", i)
+		log.Info("Fetching transaction batch", "index", i)
 		_, txs, err := s.client.GetTransactionBatch(i)
 		if err != nil {
+			log.Error("Cannot get transaction batch", "err", err)
 			return fmt.Errorf("Cannot get transaction batch: %w", err)
 		}
+		log.Info("Fetched transaction batch", "index", i, "txs", len(txs))
 		for _, tx := range txs {
 			if err := s.applyBatchedTransaction(tx); err != nil {
+				log.Error("Cannot apply batched transaction", "err", err)
 				return fmt.Errorf("cannot apply batched transaction: %w", err)
 			}
 		}

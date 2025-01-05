@@ -418,6 +418,7 @@ export class L1IngestionService extends BaseService<L1IngestionServiceOptions> {
 
         const parsedEvents = []
         for (const [i, event] of events.entries()) {
+          const tick2 = Date.now()
           parsedEvents.push(
             await handlers.parseEvent(
               event,
@@ -429,7 +430,7 @@ export class L1IngestionService extends BaseService<L1IngestionServiceOptions> {
             eventName,
             block: event.blockNumber,
             i,
-            durationMs: Date.now() - tick,
+            durationMs: Date.now() - tick2,
           })
         }
         this.logger.info('Parsed all events', {
