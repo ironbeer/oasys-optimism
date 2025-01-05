@@ -766,12 +766,14 @@ func (s *SyncService) applyIndexedTransaction(tx *types.Transaction) error {
 	if index == nil {
 		return errors.New("No index found in applyIndexedTransaction")
 	}
-	log.Trace("Applying indexed transaction", "index", *index)
+	log.Info("Applying indexed transaction", "index", *index)
 	next := s.GetNextIndex()
 	if *index == next {
+		log.Info("Apply transaction to tip")
 		return s.applyTransactionToTip(tx)
 	}
 	if *index < next {
+		log.Info("Apply historical transaction")
 		return s.applyHistoricalTransaction(tx)
 	}
 	return fmt.Errorf("Received tx at index %d when looking for %d", *index, next)
@@ -945,7 +947,7 @@ func (s *SyncService) applyBatchedTransaction(tx *types.Transaction) error {
 		log.Error("No index found on transaction")
 		return errors.New("No index found on transaction")
 	}
-	log.Trace("Applying batched transaction", "index", *index)
+	log.Info("Applying batched transaction", "index", *index)
 	err := s.applyIndexedTransaction(tx)
 	if err != nil {
 		log.Error("Cannot apply batched transaction", "err", err)
