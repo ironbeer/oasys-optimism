@@ -832,6 +832,7 @@ func (s *SyncService) applyTransactionToTip(tx *types.Transaction) error {
 	// now, the sequencer will assign a timestamp to each transaction.
 	ts := s.GetLatestL1Timestamp()
 	bn := s.GetLatestL1BlockNumber()
+	log.Info("GetLatestL1Timestamp and GetLatestL1BlockNumber", "ts", ts, "bn", bn)
 
 	// The L1Timestamp is 0 for QueueOriginSequencer transactions when
 	// running as the sequencer, the transactions are coming in via RPC.
@@ -861,31 +862,40 @@ func (s *SyncService) applyTransactionToTip(tx *types.Transaction) error {
 	} else if tx.L1Timestamp() < ts {
 		// This should never happen, but sometimes does
 		log.Error("Timestamp monotonicity violation", "hash", tx.Hash().Hex(), "latest", ts, "tx", tx.L1Timestamp())
+	} else {
+		log.Info("No match 1")
 	}
 
 	l1BlockNumber := tx.L1BlockNumber()
 	// Set the L1 blocknumber
 	if l1BlockNumber == nil {
+		log.Info("SetL1BlockNumber", "bn", bn)
 		tx.SetL1BlockNumber(bn)
 	} else if l1BlockNumber.Uint64() > bn {
+		log.Info("SetLatestL1BlockNumber", "l1BlockNumber", l1BlockNumber)
 		s.SetLatestL1BlockNumber(l1BlockNumber.Uint64())
 	} else if l1BlockNumber.Uint64() < bn {
 		// l1BlockNumber < latest l1BlockNumber
 		// indicates an error
 		log.Error("Blocknumber monotonicity violation", "hash", tx.Hash().Hex(),
 			"new", l1BlockNumber.Uint64(), "old", bn)
+	} else {
+		log.Info("No match 2")
 	}
 
 	// Store the latest timestamp value
 	if tx.L1Timestamp() > ts {
+		log.Info("SetLatestL1Timestamp", "tx.L1Timestamp", tx.L1Timestamp())
 		s.SetLatestL1Timestamp(tx.L1Timestamp())
 	}
 
 	index := s.GetLatestIndex()
 	if tx.GetMeta().Index == nil {
 		if index == nil {
+			log.Info("tx.SetIndex", "val", 0)
 			tx.SetIndex(0)
 		} else {
+			log.Info("tx.SetIndex", "val", *index+1)
 			tx.SetIndex(*index + 1)
 		}
 	}
@@ -894,12 +904,13 @@ func (s *SyncService) applyTransactionToTip(tx *types.Transaction) error {
 	// the case where the index is updated but the
 	// transaction isn't yet added to the chain
 	s.SetLatestIndex(tx.GetMeta().Index)
+	log.Info("SetLatestIndex", "val", tx.GetMeta().Index)
 	if queueIndex := tx.GetMeta().QueueIndex; queueIndex != nil {
 		s.SetLatestEnqueueIndex(queueIndex)
 	}
 
 	// The index was set above so it is safe to dereference
-	log.Debug("Applying transaction to tip", "index", *tx.GetMeta().Index, "hash", tx.Hash().Hex(), "origin", tx.QueueOrigin().String())
+	log.Info("Applying transaction to tip", "index", *tx.GetMeta().Index, "hash", tx.Hash().Hex(), "origin", tx.QueueOrigin().String())
 
 	txs := types.Transactions{tx}
 	errCh := make(chan error, 1)
@@ -908,7 +919,7 @@ func (s *SyncService) applyTransactionToTip(tx *types.Transaction) error {
 		ErrCh: errCh,
 	})
 	// Block until the transaction has been added to the chain
-	log.Trace("Waiting for transaction to be added to chain", "hash", tx.Hash().Hex())
+	log.Info("Waiting for transaction to be added to chain", "hash", tx.Hash().Hex())
 
 	select {
 	case err := <-errCh:
@@ -918,6 +929,7 @@ func (s *SyncService) applyTransactionToTip(tx *types.Transaction) error {
 		s.SetLatestIndex(index)
 		return err
 	case <-s.chainHeadCh:
+		log.Info("Got event from chainHeadCh")
 		// Update the cache when the transaction is from the owner
 		// of the gas price oracle
 		sender, _ := types.Sender(s.signer, tx)
