@@ -1310,6 +1310,7 @@ func (bc *BlockChain) WriteBlockWithState(block *types.Block, receipts []*types.
 // writeBlockWithState writes the block and all associated state to the database,
 // but is expects the chain mutex to be held.
 func (bc *BlockChain) writeBlockWithState(block *types.Block, receipts []*types.Receipt, logs []*types.Log, state *state.StateDB, emitHeadEvent bool) (status WriteStatus, err error) {
+	log.Info("writeBlockWithState", "block", block.Number())
 	bc.wg.Add(1)
 	defer bc.wg.Done()
 
@@ -1514,6 +1515,11 @@ func (bc *BlockChain) InsertChain(chain types.Blocks) (int, error) {
 // is imported, but then new canon-head is added before the actual sidechain
 // completes, then the historic state could be pruned again
 func (bc *BlockChain) insertChain(chain types.Blocks, verifySeals bool) (int, error) {
+	if len(chain) > 0 {
+		log.Info("insertChain", "chain[0]", chain[0].Number())
+	} else {
+		log.Info("insertChain", "chain", "empty")
+	}
 	// If the chain is terminating, don't even bother starting up
 	if atomic.LoadInt32(&bc.procInterrupt) == 1 {
 		return 0, nil

@@ -489,7 +489,7 @@ func (w *worker) mainLoop() {
 				continue
 			}
 			tx := ev.Txs[0]
-			log.Debug("Attempting to commit rollup transaction", "hash", tx.Hash().Hex())
+			log.Info("Attempting to commit rollup transaction", "hash", tx.Hash().Hex())
 			// Build the block with the tx and add it to the chain. This will
 			// send the block through the `taskCh` and then through the
 			// `resultCh` which ultimately adds the block to the blockchain
@@ -510,7 +510,7 @@ func (w *worker) mainLoop() {
 				}
 				txn := txs[0]
 				height := head.Block.Number().Uint64()
-				log.Debug("Miner got new head", "height", height, "block-hash", head.Block.Hash().Hex(), "tx-hash", txn.Hash().Hex(), "tx-hash", tx.Hash().Hex())
+				log.Info("Miner got new head", "height", height, "block-hash", head.Block.Hash().Hex(), "tx-hash", txn.Hash().Hex(), "tx-hash", tx.Hash().Hex())
 
 				// Prevent memory leak by cleaning up pending tasks
 				// This is mostly copied from the `newWorkLoop`
@@ -982,7 +982,7 @@ func (w *worker) commitNewTx(tx *types.Transaction) error {
 	if err := w.commitTransactionsWithError(txs, w.coinbase, nil); err != nil {
 		return err
 	}
-	log.Info("Commit from commitNewTx")
+	log.Info("MARK: Commit from commitNewTx")
 	return w.commit(nil, w.fullTaskHook, tstart)
 }
 
