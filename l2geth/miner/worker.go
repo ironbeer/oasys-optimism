@@ -1152,7 +1152,9 @@ func (w *worker) commit(uncles []*types.Header, interval func(), start time.Time
 			log.Info("Worker has exited")
 		}
 	}
+	log.Info("Do updateSnapshot")
 	w.updateSnapshot()
+	log.Info("Done updateSnapshot")
 	return nil
 }
 
